@@ -1,4 +1,4 @@
-from model import TopWord
+from model import TopWord, connect_to_db, db
 from server import app
 
 def load_topwords():
@@ -6,7 +6,7 @@ def load_topwords():
 
 	the_file = open("./seed_data/topwords.csv")
 
-	split_words = the_file.split(",")
+	split_words = the_file.read().split(",")
 
 	for word in split_words:
 

@@ -11,13 +11,13 @@ class TopWord(db.Model):
 
 	__tablename__ = "topwords"
 
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	id = db.Column(db.Integer, primary_key=True)
 	word = db.Column(db.String(100), nullable=False, unique=True)
 
 	def __repr__(self):
 		"""Statement when object is printed."""
 
-		return "<Word index=%d word=%s>" % (self.id, self.word)
+		return "<Word index=%s word=%s>" % (self.id, self.word)
 
 
 def connect_to_db(app):
