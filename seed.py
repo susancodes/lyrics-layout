@@ -18,6 +18,12 @@ def load_topwords():
 		db.session.add(new_word)
 		db.session.commit()
 
+
+def load_songs():
+	"""loads songs with word count."""
+
+	pass
+
 if __name__ == "__main__":
     connect_to_db(app)
 

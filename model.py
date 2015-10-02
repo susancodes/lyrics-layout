@@ -20,6 +20,18 @@ class TopWord(db.Model):
 		return "<Word index=%s word=%s>" % (self.id, self.word)
 
 
+
+class Song(db.Model):
+	"""database for songs with lyrics word count."""
+
+	__tablename__ = "songs"
+
+	id = db.Column(db.Integer, primary_key=True)
+
+
+
+
+
 def connect_to_db(app):
     """Connect the database to our Flask app."""
 
