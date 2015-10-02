@@ -1,0 +1,25 @@
+from model import TopWord
+from server import app
+
+def load_topwords():
+	"""load top words into database."""
+
+	the_file = open("./seed_data/topwords.csv")
+
+	split_words = the_file.split(",")
+
+	for word in split_words:
+
+		word = word
+
+		new_word = TopWord(word=word)
+		print new_word
+
+		db.session.add(new_word)
+		db.session.commit()
+
+if __name__ == "__main__":
+    connect_to_db(app)
+
+    load_topwords()
+
