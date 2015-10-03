@@ -27,8 +27,16 @@ class Song(db.Model):
 	__tablename__ = "songs"
 
 	id = db.Column(db.Integer, primary_key=True)
+	msd_track_id = db.Column(db.String(50), nullable=False, unique=True)
+	mxm_track_id = db.Column(db.Integer, nullable=False, unique=True)
+	word_id = db.Column(db.Integer, db.ForeignKey("topwords.id"), nullable=False)
+	word_count = db.Column(db.Integer, nullable=False)
 
 
+	def __repr__(self):
+		"""Statement when object is printed."""
+
+		return "<Song MSD_track_id:%s word_id:%s" % (self.msd_track_id, self.word_id)
 
 
 
@@ -51,3 +59,5 @@ if __name__ == "__main__":
     from server import app
     connect_to_db(app)
     print "Connected to DB."
+
+    
