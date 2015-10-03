@@ -32,6 +32,8 @@ class Song(db.Model):
 	word_id = db.Column(db.Integer, db.ForeignKey("topwords.id"), nullable=False)
 	word_count = db.Column(db.Integer, nullable=False)
 
+	word = db.relationship("TopWord", backref=db.backref("song", order_by=id))
+
 
 	def __repr__(self):
 		"""Statement when object is printed."""
@@ -60,4 +62,4 @@ if __name__ == "__main__":
     connect_to_db(app)
     print "Connected to DB."
 
-    
+
