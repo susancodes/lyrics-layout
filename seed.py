@@ -28,8 +28,10 @@ def load_songs():
 
 	for line in the_file:
 
+		line = line.decode(encoding="UTF-8")
+
 		split_words = line.rstrip().split(",")
-		mdm_track_id = split_words[0]
+		msd_track_id = split_words[0]
 		mxm_track_id = split_words[1]
 
 		# each song will have different compositions of top words 
@@ -39,9 +41,15 @@ def load_songs():
 			# each word and count is separated by : so need to split them
 			word_and_count = split_words[i].split(":")
 			word_id = word_and_count[0]
-			count = word_and_count[1]
 
-			new_song = Song(mdm_track_id=mdm_track_id, mxm_track_id=mxm_track_id, word_id=word_id, count=count)
+			word_query = TopWord.query.get(word_id)
+			word = word_query.word
+			print word 
+
+			word_count = word_and_count[1]
+
+			new_song = Song(msd_track_id=msd_track_id, mxm_track_id=mxm_track_id, word_id=word_id, word=word, word_count=word_count)
+			print new_song
 
 			db.session.add(new_song)
 

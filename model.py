@@ -27,18 +27,19 @@ class Song(db.Model):
 	__tablename__ = "songs"
 
 	id = db.Column(db.Integer, primary_key=True)
-	msd_track_id = db.Column(db.String(50), nullable=False, unique=True)
-	mxm_track_id = db.Column(db.Integer, nullable=False, unique=True)
+	msd_track_id = db.Column(db.String(50), nullable=False)
+	mxm_track_id = db.Column(db.Integer, nullable=False)
 	word_id = db.Column(db.Integer, db.ForeignKey("topwords.id"), nullable=False)
+	word = db.Column(db.String(100), nullable=False)
 	word_count = db.Column(db.Integer, nullable=False)
 
-	word = db.relationship("TopWord", backref=db.backref("song", order_by=id))
+	# word = db.relationship("TopWord", backref=db.backref("song", order_by=id))
 
 
 	def __repr__(self):
 		"""Statement when object is printed."""
 
-		return "<Song MSD_track_id:%s word_id:%s" % (self.msd_track_id, self.word_id)
+		return "<Song MSD_track_id:%s word_id:%s word:%s" % (self.msd_track_id, self.word_id, self.word)
 
 
 
