@@ -1,4 +1,7 @@
+from model import TopWord, Song, connect_to_db, db
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
+from flask_debugtoolbar import DebugToolbarExtension
+
 
 import os
 
@@ -13,7 +16,30 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "ABCDEF")
 def homepage():
 	"""Display webapp."""
 
-	pass
+	return render_template("index.html")
+
+
+@app.route("/songsearch")
+def song_search():
+	"""display graph of word composition in lyrics."""
+
+	test_song_id = "TRZZZZD128F4236844"
+
+	song_lyrics_object = Song.query.filter(Song.msd_track_id == test_song_id).all()
+
+	words_list = []
+	for item in song_lyrics_object:
+
+		word = item.word
+		count = item.word_count
+
+		word_dictionary = {"word": word, "count": count}
+		print word_dictionary
+		
+		words_list.append(word_dictionary)
+
+	return jsonify(data=words_list[:10])
+
 
 
 
