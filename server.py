@@ -55,7 +55,7 @@ def song_search():
 		
 		words_list.append(word_dictionary)
 
-	return jsonify(artist=artist_name, song_name=song_name, lyrics=words_list[:10])
+	return jsonify(artist=artist_name, song_name=song_name, lyrics=words_list[:20])
 
 
 
