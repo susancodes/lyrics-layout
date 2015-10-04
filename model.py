@@ -39,7 +39,7 @@ class Song(db.Model):
 	def __repr__(self):
 		"""Statement when object is printed."""
 
-		return "<Song MSD_track_id:%s word_id:%s word:%s" % (self.msd_track_id, self.word_id, self.word)
+		return "<Song MSD_track_id:%s word_id:%s" % (self.msd_track_id, self.word_id)
 
 
 
