@@ -40,7 +40,10 @@ function searchSong() {
 
 
 function makePrettyGraph(results) {
-  data = results.data
+  data = results.lyrics
+
+  console.log(results.artist);
+  console.log(results.song_name);
 
   for (var i=0; i < data.length; i++) {  
     var d = data[i];
