@@ -44,7 +44,6 @@ def load_songs():
 
 			word_query = TopWord.query.get(word_id)
 			word = word_query.word
-			print word 
 
 			word_count = word_and_count[1]
 

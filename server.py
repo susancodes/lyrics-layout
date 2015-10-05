@@ -43,9 +43,20 @@ def song_search():
 	song_name = response_text["message"]["body"]["track"]["track_name"]
 	print "TRACK NAME: ", song_name
 
+	primary_genre = response_text["message"]["body"]["track"]["primary_genres"]["music_genre_list"][0]["music_genre"]["music_genre_name"]
+	print "GENRE: ", primary_genre
+
+	spotify_id = response_text["message"]["body"]["track"]["track_spotify_id"]
+	spotify_url = "https://play.spotify.com/track/%s" %spotify_id
+	print "Play on Spotify: ", spotify_url
 
 	words_list = []
 	for item in song_lyrics_query.all():
+
+		# item.artist_name = artist_name
+		# item.song_name = song_name
+		# item.primary_genre = primary_genre
+		# db.session.commit()
 
 		word = item.word
 		count = item.word_count
