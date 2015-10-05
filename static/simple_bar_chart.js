@@ -9,7 +9,7 @@ function searchSong() {
       $("#song-title").text("Song Title: " + data.song_name);
       $("#song-artist").text("Artist: " + data.artist);      
       $("#song-genre").text("Genre: " + data.genre);      
-      $("#song-spotify").append('<a href="' + data.spotify + '">Play Song on Spotify</a>')     
+      $("#song-spotify").html('<a href="' + data.spotify + '">Play Song on Spotify</a>')     
 
       makePrettyGraph(data);
   })
