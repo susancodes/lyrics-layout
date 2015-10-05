@@ -26,45 +26,63 @@ def homepage():
 def song_search():
 	"""display graph of word composition in lyrics."""
 
+	# get random song for purpose of building up song info as we test
 	random_song_id_num = random.randrange(1, 2199389)
 	random_song = Song.query.get(random_song_id_num)
 	random_song_msd_id = random_song.msd_track_id
 
+	# get the random song's lyrics
 	song_lyrics_query = Song.query.filter(Song.msd_track_id == random_song_msd_id)
 
-	test_song_mxm_id = song_lyrics_query.first().mxm_track_id
+	# check if random song's additional info is already in the database
+	# if None, make an API call to get all of that
+	if song_lyrics_query.first().artist_name == None:
 
-	request_url = "http://api.musixmatch.com/ws/1.1/track.get?format=json&apikey=%s&track_id=%s" % (musixmatch_key, test_song_mxm_id)
-	print request_url
-	response = requests.get(request_url)
-	response_text = response.json()
+		# get mxm id so we can use it to make an API call
+		test_song_mxm_id = song_lyrics_query.first().mxm_track_id
 
-	pprint.pprint(response_text)
+		request_url = "http://api.musixmatch.com/ws/1.1/track.get?format=json&apikey=%s&track_id=%s" % (musixmatch_key, test_song_mxm_id)
+		print request_url
+		response = requests.get(request_url)
+		response_text = response.json()
 
-	artist_name = response_text["message"]["body"]["track"]["artist_name"]
-	print "ARTIST NAME: ", artist_name
+		pprint.pprint(response_text)
 
-	song_name = response_text["message"]["body"]["track"]["track_name"]
-	print "TRACK NAME: ", song_name
+		artist_name = response_text["message"]["body"]["track"]["artist_name"]
+		print "ARTIST NAME: ", artist_name
 
-	primary_genre = response_text["message"]["body"]["track"]["primary_genres"]["music_genre_list"][0]["music_genre"]["music_genre_name"]
-	print "GENRE: ", primary_genre
+		song_name = response_text["message"]["body"]["track"]["track_name"]
+		print "TRACK NAME: ", song_name
 
-	spotify_id = response_text["message"]["body"]["track"]["track_spotify_id"]
-	spotify_url = "https://play.spotify.com/track/%s" %spotify_id
-	print "Play on Spotify: ", spotify_url
+		if response_text["message"]["body"]["track"]["primary_genres"]["music_genre_list"] != []:
+			primary_genre = response_text["message"]["body"]["track"]["primary_genres"]["music_genre_list"][0]["music_genre"]["music_genre_name"]
+			print "GENRE: ", primary_genre
+		else:
+			primary_genre = "Not Available"
 
+		spotify_id = response_text["message"]["body"]["track"]["track_spotify_id"]
+		spotify_url = "https://play.spotify.com/track/%s" %spotify_id
+		print "Play on Spotify: ", spotify_url
+
+	# build the word list to send over to d3
 	words_list = []
 	for item in song_lyrics_query.all():
 
 		if item.artist_name == None:
+
 			item.artist_name = artist_name
 			item.song_name = song_name
 			item.primary_genre = primary_genre
 			db.session.commit()
 			print "commited to lyricsdb"
+
 		else:
-			print "nothing was added"
+			
+			print "already in database"
+			artist_name = item.artist_name
+			song_name = item.song_name
+			primary_genre = item.primary_genre
+			spotify_url = "None"
 
 		word = item.word
 		count = item.word_count
