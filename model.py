@@ -33,7 +33,13 @@ class Song(db.Model):
 	word = db.Column(db.String(100), nullable=False)
 	word_count = db.Column(db.Integer, nullable=False)
 
-	# word = db.relationship("TopWord", backref=db.backref("song", order_by=id))
+	# will add these as we look up this information
+	# this requires making API calls and there's a limit so we can't do it all at once
+	track_name = db.Column(db.String(500))
+	artist_name = db.Column(db.String(500))
+	primary_genre = db.Column(db.String(500))
+	secondary_genre = db.Column(db.String(500))
+	tertiary_genre = db.Column(db.String(500))
 
 
 	def __repr__(self):
