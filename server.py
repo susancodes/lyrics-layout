@@ -2,6 +2,7 @@ from model import TopWord, Song, connect_to_db, db
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
+import random
 import requests
 import pprint
 import os
@@ -25,8 +26,11 @@ def homepage():
 def song_search():
 	"""display graph of word composition in lyrics."""
 
-	test_song_msd_id = "TRZZZZD128F4236844"
-	song_lyrics_query = Song.query.filter(Song.msd_track_id == test_song_msd_id)
+	random_song_id_num = random.randrange(1, 2199389)
+	random_song = Song.query.get(random_song_id_num)
+	random_song_msd_id = random_song.msd_track_id
+
+	song_lyrics_query = Song.query.filter(Song.msd_track_id == random_song_msd_id)
 
 	test_song_mxm_id = song_lyrics_query.first().mxm_track_id
 
@@ -53,10 +57,14 @@ def song_search():
 	words_list = []
 	for item in song_lyrics_query.all():
 
-		# item.artist_name = artist_name
-		# item.song_name = song_name
-		# item.primary_genre = primary_genre
-		# db.session.commit()
+		if item.artist_name == None:
+			item.artist_name = artist_name
+			item.song_name = song_name
+			item.primary_genre = primary_genre
+			db.session.commit()
+			print "commited to lyricsdb"
+		else:
+			print "nothing was added"
 
 		word = item.word
 		count = item.word_count
@@ -66,7 +74,7 @@ def song_search():
 		
 		words_list.append(word_dictionary)
 
-	return jsonify(artist=artist_name, song_name=song_name, lyrics=words_list[:20])
+	return jsonify(artist=artist_name, song_name=song_name, genre=primary_genre, spotify=spotify_url, lyrics=words_list[:20])
 
 
 

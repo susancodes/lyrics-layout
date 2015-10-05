@@ -33,6 +33,11 @@ function searchSong() {
 
       console.log(data);
 
+      $("#song-title").text("Song Title: " + data.song_name);
+      $("#song-artist").text("Artist: " + data.artist);      
+      $("#song-genre").text("Genre: " + data.genre);      
+      $("#song-spotify").append('<a href="' + data.spotify + '">Play Song on Spotify</a>')     
+
       makePrettyGraph(data);
   })
 }
@@ -41,9 +46,6 @@ function searchSong() {
 
 function makePrettyGraph(results) {
   data = results.lyrics
-
-  console.log(results.artist);
-  console.log(results.song_name);
 
   for (var i=0; i < data.length; i++) {  
     var d = data[i];
