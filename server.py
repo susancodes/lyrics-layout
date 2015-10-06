@@ -77,7 +77,7 @@ def song_search():
 			print "commited to lyricsdb"
 
 		else:
-			
+
 			print "already in database"
 			artist_name = item.artist_name
 			song_name = item.song_name
@@ -92,7 +92,7 @@ def song_search():
 		
 		words_list.append(word_dictionary)
 
-	return jsonify(artist=artist_name, song_name=song_name, genre=primary_genre, spotify=spotify_url, lyrics=words_list[:20])
+	return jsonify(artist=artist_name, song_name=song_name, genre=primary_genre, spotify=spotify_url, lyrics=words_list)
 
 
 
