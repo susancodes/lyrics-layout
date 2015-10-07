@@ -22,7 +22,7 @@ def homepage():
 	return render_template("index.html")
 
 
-@app.route("/songsearch")
+@app.route("/songsearch.json")
 def song_search():
 	"""display graph of word composition in lyrics."""
 
@@ -61,7 +61,6 @@ def song_search():
 			primary_genre = "Not Available"
 
 		spotify_id = response_text["message"]["body"]["track"]["track_spotify_id"]
-		print "Play on Spotify: ", spotify_url
 
 	# build the word list to send over to d3
 	words_list = []
@@ -93,6 +92,12 @@ def song_search():
 		print word_dictionary
 		
 		words_list.append(word_dictionary)
+
+	# song_dict = {"artist": artist_name,
+	# 				"song_name": song_name,
+	# 				"genre": primary_genre,
+	# 				"spotify": spotify_url,
+	# 				"lyrics": words_list}
 
 	return jsonify(artist=artist_name, song_name=song_name, genre=primary_genre, spotify=spotify_url, lyrics=words_list)
 
