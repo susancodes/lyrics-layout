@@ -40,6 +40,7 @@ class Song(db.Model):
 	primary_genre = db.Column(db.String(500))
 	secondary_genre = db.Column(db.String(500))
 	tertiary_genre = db.Column(db.String(500))
+	spotify_id = db.Column(db.String(500))
 
 
 	def __repr__(self):

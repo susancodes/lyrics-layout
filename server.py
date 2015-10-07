@@ -61,7 +61,6 @@ def song_search():
 			primary_genre = "Not Available"
 
 		spotify_id = response_text["message"]["body"]["track"]["track_spotify_id"]
-		spotify_url = "https://play.spotify.com/track/%s" %spotify_id
 		print "Play on Spotify: ", spotify_url
 
 	# build the word list to send over to d3
@@ -73,16 +72,19 @@ def song_search():
 			item.artist_name = artist_name
 			item.song_name = song_name
 			item.primary_genre = primary_genre
+			item.spotify_id = spotify_id
 			db.session.commit()
 			print "commited to lyricsdb"
 
 		else:
 
 			print "already in database"
-			artist_name = item.artist_name
-			song_name = item.song_name
-			primary_genre = item.primary_genre
-			spotify_url = "None"
+
+		artist_name = item.artist_name
+		song_name = item.song_name
+		primary_genre = item.primary_genre
+		spotify_id = item.spotify_id
+		spotify_url = "https://play.spotify.com/track/%s" %spotify_id
 
 		word = item.word
 		count = item.word_count
