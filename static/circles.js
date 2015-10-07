@@ -29,4 +29,13 @@ function makePrettyCircles(data) {
 }
 	
 
-$("#test").on("click", searchSong);
+$("#test").on("click", function() { setInterval(searchSong, 3000)});
+
+var number = 1;
+function repeatFunction() {
+	if (number <= 1500) {
+		searchSong;
+		number++;
+	}
+}
+
