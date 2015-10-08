@@ -45,6 +45,7 @@ function repeatFunction() {
 
 
 function prettyCirclesTogether(data){
+	debugger;
 
 	var margin = {top: 20, right: 20, bottom: 30, left: 40},
 		width = 960 - margin.left - margin.right,
@@ -128,14 +129,14 @@ function copyCollisionDetection(data) {
 	var width = 960,
 	    height = 500;
 
-	var data = data.lyrics
-	var	word = function(data){ for (i; i < data.length ; i++) {return data.word}; }
-	var	count = function(data){ return d.count};
-
 	console.log(word);
 
-	var nodes = d3.range(data.length).map(counts),
-	    root = nodes[0],
+	var nodes = d3.range(data.length + 1)
+		.map(function(data, i) {
+			return {radius: data.lyrics.i};
+		});
+
+	var root = nodes[0],
 	    color = d3.scale.category10();
 
 	root.radius = 0;

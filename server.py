@@ -40,9 +40,11 @@ def song_search():
 		response = requests.get(request_url)
 		response_text = response.json()
 
-		print "status code: ", response.status_code
+		response_status_code = response_text["message"]["header"]["status_code"]
+		print "before while loop, the status code is: ", response_status_code
 
-		while response_text["message"]["header"]["status_code"] != 200:
+		while response_status_code != 200:
+			print "starting while loop"
 			song_lyrics_query = getRandomSong()
 
 			test_song_mxm_id = song_lyrics_query.first().mxm_track_id
@@ -51,6 +53,9 @@ def song_search():
 			print request_url
 			response = requests.get(request_url)
 			response_text = response.json()
+			response_status_code = response_text["message"]["header"]["status_code"]
+
+			print "after while loop, the status code is: ", response_status_code
 
 
 		pprint.pprint(response_text)
