@@ -11,9 +11,9 @@ function searchSong() {
 		$("#song-genre").text("Genre: " + data.genre);      
 		$("#song-spotify").html('<a href="' + data.spotify + '">Play Song on Spotify</a>')     
 
-		// prettyCirclesTogether(data.lyrics);
+		prettyCirclesTogether(data.lyrics);
 
-		copyCollisionDetection(data.lyrics);
+		// copyCollisionDetection(data.lyrics);
   })
 }
 
@@ -30,10 +30,10 @@ function makePrettyCircles(data) {
 	
 }
 	
-$("#test").on("click", searchSong);
+// $("#test").on("click", searchSong);
 
 // this is to run multiple times to load database
-// $("#test").on("click", function() { setInterval(searchSong, 3000)});
+$("#test").on("click", function() { setInterval(searchSong, 3000)});
 
 var number = 1;
 function repeatFunction() {

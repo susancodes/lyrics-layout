@@ -26,17 +26,11 @@ def homepage():
 def song_search():
 	"""display graph of word composition in lyrics."""
 
-	# get random song for purpose of building up song info as we test
-	random_song_id_num = random.randrange(1, 2199389)
-	random_song = Song.query.get(random_song_id_num)
-	random_song_msd_id = random_song.msd_track_id
-
-	# get the random song's lyrics
-	song_lyrics_query = Song.query.filter(Song.msd_track_id == random_song_msd_id)
+	song_lyrics_query = getRandomSong()
 
 	# check if random song's additional info is already in the database
 	# if None, make an API call to get all of that
-	if song_lyrics_query.first().artist_name == None:
+	if song_lyrics_query.first().track_name == None:
 
 		# get mxm id so we can use it to make an API call
 		test_song_mxm_id = song_lyrics_query.first().mxm_track_id
@@ -45,6 +39,19 @@ def song_search():
 		print request_url
 		response = requests.get(request_url)
 		response_text = response.json()
+
+		print "status code: ", response.status_code
+
+		while response_text["message"]["header"]["status_code"] != 200:
+			song_lyrics_query = getRandomSong()
+
+			test_song_mxm_id = song_lyrics_query.first().mxm_track_id
+
+			request_url = "http://api.musixmatch.com/ws/1.1/track.get?format=json&apikey=%s&track_id=%s" % (musixmatch_key, test_song_mxm_id)
+			print request_url
+			response = requests.get(request_url)
+			response_text = response.json()
+
 
 		pprint.pprint(response_text)
 
@@ -62,14 +69,15 @@ def song_search():
 
 		spotify_id = response_text["message"]["body"]["track"]["track_spotify_id"]
 
+
 	# build the word list to send over to d3
 	words_list = []
 	for item in song_lyrics_query.all():
 
-		if item.artist_name == None:
+		if item.track_name == None:
 
 			item.artist_name = artist_name
-			item.song_name = song_name
+			item.track_name = song_name
 			item.primary_genre = primary_genre
 			item.spotify_id = spotify_id
 			db.session.commit()
@@ -80,7 +88,7 @@ def song_search():
 			print "already in database"
 
 		artist_name = item.artist_name
-		song_name = item.song_name
+		song_name = item.track_name
 		primary_genre = item.primary_genre
 		spotify_id = item.spotify_id
 		spotify_url = "https://play.spotify.com/track/%s" %spotify_id
@@ -102,9 +110,17 @@ def song_search():
 	return jsonify(artist=artist_name, song_name=song_name, genre=primary_genre, spotify=spotify_url, lyrics=words_list)
 
 
+def getRandomSong():
 
+	# get random song for purpose of building up song info as we test
+	random_song_id_num = random.randrange(1, 2199389)
+	random_song = Song.query.get(random_song_id_num)
+	random_song_msd_id = random_song.msd_track_id
 
+	# get the random song's lyrics
+	song_lyrics_query = Song.query.filter(Song.msd_track_id == random_song_msd_id)
 
+	return song_lyrics_query
 
 
 if __name__ == "__main__":
