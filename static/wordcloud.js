@@ -6,10 +6,9 @@ function searchSong() {
 
 		console.log(data);
 
-		$("#song-title").text("Song Title: " + data.song_name);
-		$("#song-artist").text("Artist: " + data.artist);      
-		$("#song-genre").text("Genre: " + data.genre);      
-		$("#song-spotify").html('<a href="' + data.spotify + '">Play Song on Spotify</a>')     
+		$("#song-title").text(data.song_name);
+		$("#song-artist").text(" by " + data.artist + " [" + data.genre + "]");     
+		$("#song-spotify").html("<a href='" + data.spotify + "'>Play on Spotify</a>")     
 
 		makeWordCloud(data);
 
@@ -17,7 +16,7 @@ function searchSong() {
 }
 
 
-$("#test").on("click", searchSong);
+$("#random-song-button").on("click", searchSong);
 
 var data; // a global
 
@@ -26,7 +25,7 @@ function makeWordCloud (results) {
 	d3.select("svg").remove();
 
 	var width = 750,
-		height = 500;
+		height = 600;
 
 	var data = results.lyrics; 
 

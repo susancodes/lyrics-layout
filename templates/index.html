@@ -1,53 +1,39 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
+<html>
+  <head>
+    <title>Lyrics Cloud</title>
+    <!-- LINK TO JQUERY FILE -->
+      <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+      <link rel="stylesheet"
+          href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/>
+      <link rel="stylesheet" type="text/css" href="../static/style.css">
+  </head>
 
-.bar {
-  fill: steelblue;
-}
+  <body>
+    <div class="page-header">
+      <h1>Lyrics <small>D3 Visualization</small></h1>
+      <button id="random-song-button" type="button">Visualize Random Song</button>
+    </div>
 
-.bar:hover {
-  fill: brown;
-}
+    <div class="container-fluid">
+      
+      <div class="song-info">   
+        <h4 id="song-title"></h4>
+        <p id="song-artist"></p>
+        <div id="song-spotify"></div>
+      </div>
 
-.axis {
-  font: 10px sans-serif;
-}
+      <div id="d3-area"></div>
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+    </div> <!-- closing for container-fluid -->
 
-.x.axis path {
-  display: none;
-}
-
-</style>
-
-<head>
-  <title>D3 GOODNESS</title>
-  <!-- LINK TO JQUERY FILE -->
-    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-</head>
-
-<body>
-  <button id="test" type="button">Get Random Song And Do d3 Stuff!</button>
- 
-  <h3 id="song-title"></h3>
-  <p id="song-artist"></p>
-  <p id="song-genre"></p>
-  <p id="song-spotify"></p>
-
-  <div id="d3-area"></div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-  <script src="http://www.d3plus.org/js/d3plus.js"></script>
-  <!-- simple lyrics bar graph -->
-  <!-- // <script src="../static/simple_bar_chart.js"></script> -->
-  <!-- // <script src="../static/circles.js"></script> -->
-  <script src="../static/d3.layout.cloud.js"></script>
-  <script src="../static/wordcloud.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="http://www.d3plus.org/js/d3plus.js"></script>
+    <!-- simple lyrics bar graph -->
+    <!-- // <script src="../static/simple_bar_chart.js"></script> -->
+    <!-- // <script src="../static/circles.js"></script> -->
+    <script src="../static/d3.layout.cloud.js"></script>
+    <script src="../static/wordcloud.js"></script>
+  </body>
+</html>
