@@ -19,14 +19,14 @@ I wanted to visualize the word composition of songs to see if there are any patt
 
 
 #####Sample pop song:
-You can see that there are a lot of bigger words, which means that there are a lot of repetitive words in the song.
+There are a lot of big words, which means that there are a lot of repetitive words in the song.
 
 ![image](https://cloud.githubusercontent.com/assets/12265692/10537775/f15e82de-73a8-11e5-801d-382bd78f6044.png)
 
 
 
 #####Sample hip-hop song:
-You can see that there are a lot of words. Some are big, but most are small, which means there are less repetitive lyrics.
+There are a lot of unique words. Some are big, but most are small, which means there are less repetitive lyrics in this song.
 
 ![image](https://cloud.githubusercontent.com/assets/12265692/10537791/08cddbe0-73a9-11e5-8fa9-eda9680557a9.png)
 
