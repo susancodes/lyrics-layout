@@ -112,6 +112,8 @@ def song_search():
 	# 				"spotify": spotify_url,
 	# 				"lyrics": words_list}
 
+	print words_list
+	
 	return jsonify(artist=artist_name, song_name=song_name, genre=primary_genre, spotify=spotify_url, lyrics=words_list)
 
 

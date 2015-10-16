@@ -17,6 +17,7 @@ function searchSong() {
   })
 }
 
+// this is the plan version with circles spaced out. no force.
 function makePrettyCircles(data) {
 
 	var circleViz = d3plus.viz()
