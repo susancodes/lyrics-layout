@@ -2,6 +2,8 @@
 
 Word cloud made up of lyrics from a song.
 
+I wanted to visualize the word composition of songs to see if there are any patterns.
+
 ## Table of Contents
 
 * [Output](#output)
@@ -15,13 +17,16 @@ Word cloud made up of lyrics from a song.
 
 ### <a name="output"></a>Sample Lyrics Word Clouds
 
-Sample pop song:
+
+#####Sample pop song:
+You can see that there are a lot of bigger words, which means that there are a lot of repetitive words in the song.
 
 ![image](https://cloud.githubusercontent.com/assets/12265692/10537775/f15e82de-73a8-11e5-801d-382bd78f6044.png)
 
 
 
-Sample hip-hop song:
+#####Sample hip-hop song:
+You can see that there are a lot of words. Some are big, but most are small, which means there are less repetitive lyrics.
 
 ![image](https://cloud.githubusercontent.com/assets/12265692/10537791/08cddbe0-73a9-11e5-8fa9-eda9680557a9.png)
 
