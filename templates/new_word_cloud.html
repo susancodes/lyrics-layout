@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="d3.layout.cloud.js"></script>
+<head>
+    <title>Word Cloud Example</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    var frequency_list = [{'text': 'robert mueller', 'size': 239}, {'text': 'mueller', 'size': 157}, {'text': 'trump', 'size': 153}, {'text': 'donald trump', 'size': 128}, {'text': 'facebook', 'size': 90}, {'text': 'boris johnson', 'size': 82}, {'text': 'people', 'size': 75}, {'text': 'robert mueller testimony', 'size': 60}, {'text': 'robert mueller report', 'size': 48}, {'text': 'instagram', 'size': 46}, {'text': 'u.s.', 'size': 41}, {'text': 'netflix', 'size': 40}, {'text': 'ftc', 'size': 37}, {'text': 'star', 'size': 35}, {'text': 'mom', 'size': 33}, {'text': 'son', 'size': 33}, {'text': 'hbo', 'size': 33}, {'text': 'congress', 'size': 30}, {'text': 'federal trade commission', 'size': 30}, {'text': 'judge', 'size': 30}, {'text': 'china', 'size': 26}, {'text': 'bindi irwin', 'size': 25}, {'text': 'anne hathaway', 'size': 25}, {'text': 'company', 'size': 24}, {'text': 'twitter', 'size': 23}, {'text': 'chandler powell', 'size': 23}, {'text': 'democrats', 'size': 23}, {'text': 'taylor swift', 'size': 22}, {'text': 'prime minister', 'size': 22}, {'text': 'jennifer lopez', 'size': 22}, {'text': 'rutger hauer', 'size': 22}, {'text': 'hollywood', 'size': 22}, {'text': 'india', 'size': 20}, {'text': 'steve irwin', 'size': 20}, {'text': 'republicans', 'size': 19}, {'text': 'dad', 'size': 19}, {'text': 'daughter', 'size': 18}, {'text': 'apple', 'size': 18}, {'text': 'atkins', 'size': 17}, {'text': 'america', 'size': 17}, {'text': 'google', 'size': 16}, {'text': 'robert mueller investigation', 'size': 16}, {'text': 'meghan markle', 'size': 16}, {'text': 'man', 'size': 16}, {'text': 'couple', 'size': 15}, {'text': 'father', 'size': 15}, {'text': 'microsoft', 'size': 14}, {'text': 'europe', 'size': 14}, {'text': 'boeing', 'size': 14}, {'text': 'marcus hyde', 'size': 14}]
+
+
+    var color = d3.scale.category20();
+
+    var tooltip = d3.select("body")
+    .append("div")
+    .style("background-color", "pink")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden");
+
+    d3.layout.cloud().size([800, 400])
+            .words(frequency_list)
+            .rotate(function() { return 0; })
+            .font('Impact')
+            .text(function(d) { return d.text; })
+            .fontSize(function(d) { return (d.size * .8); })
+            .on("end", draw)
+            .start();
+
+    function draw(words) {
+        d3.select("body").append("svg")
+                .attr("width", 850)
+                .attr("height", 450)
+                .attr("class", "wordcloud")
+                .attr("font-family", "Impact")
+                .attr("text-anchor", "middle")
+                .append("g")
+                // without the transform, words words would get cutoff to the left and top, they would
+                // appear outside of the SVG area
+                .attr("transform", "translate(400,200)")
+                .selectAll("text")
+                .data(words)
+                .enter().append("text")
+                .style("font-size", function(d) { return d.size + "px"; })
+                .style("fill", function(d, i) { return color(i); })
+                .attr("transform", function(d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function(d) { return d.text; })
+                .on("mouseover", function(d) {
+                        d3.select(this).style("font-size", function(d) { return (d.size * 1.1) + "px"; });
+                        return tooltip.style("visibility", "visible").text("Articles: " + d.size);
+                      })
+                .on("mousemove", function(){return tooltip.style("top",
+                        (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+                .on("mouseout", function(d) {
+                        d3.select(this).style("font-size", function(d) { return d.size + "px"; });
+                        return tooltip.style("visibility", "hidden");
+                      })                
+                .on("click", function(d) {
+                        window.open('www.popsugar.com', "_blank");
+                      });
+    }
+</script>
+</html>
