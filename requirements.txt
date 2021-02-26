@@ -1,4 +1,4 @@
-aiohttp==2.3.7
+aiohttp==3.7.4
 async-timeout==2.0.0
 awsebcli==3.14.8
 beautifulsoup4==4.5.3
